@@ -17,9 +17,10 @@ else:
     wordlist_file = open(f"{wordlist_path}", "r")
     wordlist = wordlist_file.read().splitlines()
 
-for words in wordlist:
-    print("Running directory enumeration!")
-    site = f"http://{ip}/{words}"
+print("Running directory enumeration!")
+
+for word in wordlist:
+    site = f"http://{ip}/{word}"
     response = requests.get(site)
     codes = response.status_code
     if codes == 404:
