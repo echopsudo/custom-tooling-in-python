@@ -19,8 +19,8 @@ else:
 
 print("Running directory enumeration!")
 
-for word in wordlist:
-    site = f"http://{ip}/{word}"
+for words in wordlist:
+    site = f"http://{ip}/{words}"
     response = requests.get(site)
     codes = response.status_code
     if codes == 404:
