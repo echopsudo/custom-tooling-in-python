@@ -4,6 +4,8 @@ import os
 
 print("Custom Tooling: Python Directory \n")
 
+#make a mode to enumerate subdomains later 
+
 
 try:
     if len(sys.argv) == 3:
