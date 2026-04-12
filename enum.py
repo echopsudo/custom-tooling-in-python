@@ -6,7 +6,7 @@ print("Custom Tooling: Python Directory \n")
 
 def help():
     print("Help for this script")
-    print("Usage: python3 SCRIPTNAME.py 127.0.0.1 wordlist_file.txt")
+    print("Usage: python3 enum.py 127.0.0.1 wordlist_file.txt")
 
 def dir():
     try:
