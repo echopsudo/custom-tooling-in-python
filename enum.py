@@ -11,28 +11,25 @@ def help():
     print("Usage: python3 enum.py 127.0.0.1 wordlist_file.txt")
 
 
-def no_arguments():
-    print("It looks like you didn't provide any arguments")
-    ip = input("Please enter the IP you want to enumerate: ")
-    wordlist_path = input("Please enter the wordlist file: ")
-    wordlist_file = open(f"{wordlist_path}", "r")
-    wordlist = wordlist_file.read().splitlines()
-
-
-def dir():
+def enumerate_dir():
     try:
         if len(sys.argv) == 3:
             ip_regex = r"^([0-9]{1,3}\.){3}[0-9]{1,3}$"
             if re.match(ip_regex, sys.argv[1]):
                 ip = sys.argv[1]
-                wordlist_file = open(f"{sys.argv[2]}", "r")
+                with open(f"{sys.argv[2]}", "r") as wordlist_file:
+                    wordlist = wordlist_file.read().splitlines()
             else:
                 ip = sys.argv[2]
-                wordlist_file = open(f"{sys.argv[1]}", "r")
-            wordlist = wordlist_file.read().splitlines()
+                with open(f"{sys.argv[1]}", "r") as wordlist_file:
+                    wordlist = wordlist_file.read().splitlines()
         else:
-            no_arguments()
-    except:
+                print("It looks like you didn't provide any arguments")
+                ip = input("Please enter the IP you want to enumerate: ")
+                wordlist_path = input("Please enter the wordlist file: ")
+                with open(f"{wordlist_path}", "r") as wordlist_file:
+                    wordlist = wordlist_file.read().splitlines()
+    except FileNotFoundError:
         print("Wordlist not found!")
         sys.exit()
 
@@ -41,13 +38,13 @@ def dir():
     try:
         for words in wordlist:
             site = f"http://{ip}/{words}"
-            response = requests.get(site)
+            response = requests.get(site, timeout=3)
             codes = response.status_code
             if codes == 404:
                 pass
             else:
                 print(f"{site}: {codes}")
-    except:
+    except requests.exceptions.RequestException:
         print("IP or Port is not opened!")
         sys.exit()
 
@@ -55,12 +52,12 @@ def dir():
 # make a mode to enumerate subdomains later
 mode = input("do you want to enumerate dir/sub: ")
 
-while True:
-    if mode == "dir":
-        dir()
-    # elif mode == "sub":
-        # sub()
-    elif mode == "--help":
-        help()
-    else:
-        print("invalid choice, see --help")
+
+if mode == "dir":
+    enumerate_dir()
+# elif mode == "sub":
+    # sub()
+elif mode == "--help":
+    help()
+else:
+    print("invalid choice, see --help")
