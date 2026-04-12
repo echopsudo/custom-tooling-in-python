@@ -52,14 +52,14 @@ def dir():
         sys.exit()
 
 
-#make a mode to enumerate subdomains later
+# make a mode to enumerate subdomains later
 mode = input("do you want to enumerate dir/sub: ")
 
 while True:
     if mode == "dir":
         dir()
-    #elif mode == "sub":
-        #sub()
+    # elif mode == "sub":
+        # sub()
     elif mode == "--help":
         help()
     else:
