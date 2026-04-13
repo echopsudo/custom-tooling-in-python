@@ -1,5 +1,5 @@
 # custom-tooling-directory-enum
 # ⚠️ This script is intended for educational purposes and authorized testing environments ONLY! ⚠️
-A python script to enumerate directories
+A python script to enumerate directories and subdomains.
 
 this is just a placeholder script/project.
